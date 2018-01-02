@@ -29,7 +29,7 @@ const tabNavigatorScreen = {
 const tabNavigatorConfig = {
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
-  initialRouteName: 'Home',
+  initialRouteName: 'User',
 }
 
 const Tab = TabNavigator(tabNavigatorScreen, tabNavigatorConfig)

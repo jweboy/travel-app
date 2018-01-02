@@ -9,9 +9,8 @@
 	"dependencies": {
 		"react": "16.0.0",
 		"react-native": "0.50.0",
-		"react-native-viewpager": "^0.2.13",
-		"react-navigation": "^1.0.0-beta.22",
-		"rn-viewpager": "^1.2.9"
+		"react-native-image-crop-picker": "^0.19.1",
+		"react-navigation": "^1.0.0-beta.22"
 	},
 	"devDependencies": {
 		"babel-jest": "22.0.4",

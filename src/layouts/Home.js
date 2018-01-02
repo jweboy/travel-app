@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native'
-import Swiper from '../components/Swiper'
+// import Swiper from '../components/Swiper'
 
 class Home extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -27,7 +27,7 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Swiper />
+        {/* <Swiper /> */}
         <Text>Home</Text>
       </View>
     )
