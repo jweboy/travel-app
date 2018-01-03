@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 import {
   View,
   Text,
@@ -7,32 +9,28 @@ import {
   Alert,
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
+import { images } from '../assets';
+import { imagePicker } from '../config'
 import TouchableImage from '../components/TouchableImage'
-
-/**
- * react-native-image-crop-picker => https://github.com/ivpusic/react-native-image-crop-picker/blob/master/example/app.js#L109:3
- * 细节需要调整 => 参考github docs
- */
 
 class User extends Component {
   static navigationOptions = {
     title: '我的'
   }
   state = {
-    avatar: require('../assets/images/avatar.jpeg')
+    avatar: images.avatar
   }
   uplodaAvatar = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true, // 裁剪
-      includeBase64: true, // base64
-      includeExif: true,
-      // multiple: true
-    })
+    ImagePicker.openPicker(imagePicker.singlePhoto)
       .then((image) => {
         console.log(image)
-        const { data, width, height, mime, path } = image
+        const {
+          data,
+          width,
+          height,
+          mime,
+          path
+        } = image
         this.setState({
           avatar: {
             uri: `data:${mime};base64,${data}`,
@@ -46,7 +44,9 @@ class User extends Component {
       })
   }
   render() {
-    const { avatar } = this.state
+    const {
+      avatar
+    } = this.state
     return (
       <View style={styles.container}>
         <View style={styles.header}>
