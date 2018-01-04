@@ -1,5 +1,11 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, {
+  Component
+} from 'react'
+import {
+  View,
+  Text,
+  StyleSheet
+} from 'react-native'
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator'
 import {
   TabNavigator,
@@ -10,6 +16,7 @@ import Home from './Home'
 import Destination from './Destination'
 import User from './User'
 import Message from './Message'
+import Login from './Login'
 
 //TODO 这个文件会耦合 后期逻辑多的话 所以需要拆分 Tab 与 Navigator 两部分
 
@@ -40,6 +47,9 @@ const stackNavigatorScreen = {
   },
   Message: {
     screen: Message
+  },
+  Login: {
+    screen: Login
   }
 }
 const stackNavigatorConfig = {
@@ -48,7 +58,7 @@ const stackNavigatorConfig = {
   transitionConfig: (() => ({
     screenInterpolator: CardStackStyleInterpolator.forHorizontal,
   })),
-  initialRouteName: 'Tab',
+  initialRouteName: 'Login',
 }
 const NavNavigator = StackNavigator(stackNavigatorScreen, stackNavigatorConfig)
 
@@ -58,8 +68,8 @@ class Navigation extends Component {
     conifg
   )
   render() {
-    return (
-      <NavNavigator />
+    return ( <
+      NavNavigator / >
     )
   }
 }
