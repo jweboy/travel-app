@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   Alert,
+  TouchableOpacity
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
 import { images } from '../assets';
@@ -24,13 +25,7 @@ class User extends Component {
     ImagePicker.openPicker(imagePicker.singlePhoto)
       .then((image) => {
         console.log(image)
-        const {
-          data,
-          width,
-          height,
-          mime,
-          path
-        } = image
+        const { data, width, height, mime, path } = image
         this.setState({
           avatar: {
             uri: `data:${mime};base64,${data}`,
@@ -43,6 +38,9 @@ class User extends Component {
         Alert.alert(err.message || err)
       })
   }
+  checkLogin = () => {
+    this.props.navigation.navigate('Login')
+  }
   render() {
     const {
       avatar
@@ -53,11 +51,11 @@ class User extends Component {
           <TouchableImage
             source={avatar}
             style={styles.avatar}
-            onPress={this.uplodaAvatar}
+            onPress={this.checkLogin}
           />
         </View>
         <View style={styles.main}></View>
-      </View>
+      </View >
     )
   }
 }
