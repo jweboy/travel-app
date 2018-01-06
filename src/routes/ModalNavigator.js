@@ -12,7 +12,8 @@ const routeScreen = {
 }
 const routeConfig = {
   mode: 'modal',
-  headerMode: 'none'
+  headerMode: 'none',
+  initialRouteName: 'Login'
 }
 
 export default StackNavigator(routeScreen, routeConfig);

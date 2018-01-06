@@ -10,17 +10,16 @@ import {
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import { images } from '../assets'
-import TouchableButton from '../components/TouchableButton'
+import { PrimaryView, ButtonText } from '../components/TouchableButton'
+import { createButton } from '../utils'
 
-const LoginButton = TouchableButton.Login
 const { width, height } = Dimensions.get('window')
 
 const BackgroundView = styled.ImageBackground`
   flex: 1
   align-items: center
   justify-content: center
-  `
-
+`
 const LoginCard = styled.View`
   width: ${width - 60}
   paddingTop: 20
@@ -30,24 +29,28 @@ const LoginCard = styled.View`
   background-color: rgba(245,236,236, .35)
   border-radius: 10
 `
-
 const FormView = styled.View`
 `
-
 const FormInput = styled.TextInput`
   height: 55
   marginBottom: 10
   border-radius: 5
   background-color: rgb(235,235,235)
 `
+const LoginButtonView = PrimaryView.extend`
+  marginTop: 30
+`
+
+const LoginButton = createButton(({ text }) => (
+  <LoginButtonView>
+    <ButtonText>{text}</ButtonText>
+  </LoginButtonView>
+))
 
 class Login extends Component {
   static navigationOptions = {
     header: false,
   }
-  // static propTypes = {
-  //   prop: PropTypes
-  // }
   handleLogin = () => {
     const { navigation } = this.props;
     navigation.goBack()
