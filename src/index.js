@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Drawer from './layouts/Drawer'
+import Drawer from './routes'
 
 class App extends Component {
   render() {
