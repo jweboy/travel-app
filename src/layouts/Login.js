@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Dimensions,
-  Image,
+  TextInput,
   ImageBackground,
   StyleSheet
 } from 'react-native'
@@ -15,52 +15,59 @@ import TouchableButton from '../components/TouchableButton'
 const LoginButton = TouchableButton.Login
 const { width, height } = Dimensions.get('window')
 
-const StyledView = styled.View`
+const BackgroundView = styled.ImageBackground`
   flex: 1
-`
+  align-items: center
+  justify-content: center
+  `
 
 const LoginCard = styled.View`
-  width: ${width - 40}
-  height: 500
-  background-color: rgb(245,236,236)
-  opacity: 1
-  position: absolute
-  top: 110
+  width: ${width - 60}
+  paddingTop: 20
+  paddingRight:20
+  paddingBottom: 20
+  paddingLeft: 20
+  background-color: rgba(245,236,236, .35)
+  border-radius: 10
+`
+
+const FormView = styled.View`
+`
+
+const FormInput = styled.TextInput`
+  height: 55
+  marginBottom: 10
+  border-radius: 5
+  background-color: rgb(235,235,235)
 `
 
 class Login extends Component {
+  static navigationOptions = {
+    header: false,
+  }
   // static propTypes = {
   //   prop: PropTypes
   // }
   handleLogin = () => {
-    console.warn('login')
+    const { navigation } = this.props;
+    navigation.goBack()
   }
   render() {
     return (
-      <StyledView>
-        <ImageBackground
-          source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
-          style={styles.container}
-        >
-          <LoginCard>
-            <LoginButton
-              text={'登陆'}
-              onPress={this.handleLogin}
-            />
-          </LoginCard>
-        </ImageBackground>
-      </StyledView>
+      <BackgroundView
+        source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
+      >
+        <LoginCard>
+          <FormInput />
+          <FormInput />
+          <LoginButton
+            text={'登陆'}
+            onPress={this.handleLogin}
+          />
+        </LoginCard>
+      </BackgroundView>
     )
   }
 }
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // remove width and height to override fixed static size
-    width: width,
-    height: height,
-    zIndex: -1,
-    position: 'absolute'
-  }
-});
+
 export default Login
