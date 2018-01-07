@@ -10,10 +10,11 @@ import {
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import { images } from '../assets'
-import { PrimaryView, ButtonText } from '../components/TouchableButton'
-import { createButton } from '../utils'
+import { PrimaryButton } from '../styledComponents/TouchableButton'
+import { IconInput } from '../styledComponents/Input'
 
 const { width, height } = Dimensions.get('window')
+const LoginButton = PrimaryButton
 
 const BackgroundView = styled.ImageBackground`
   flex: 1
@@ -29,31 +30,36 @@ const LoginCard = styled.View`
   background-color: rgba(245,236,236, .35)
   border-radius: 10
 `
-const FormView = styled.View`
+const LoginButtonView = styled.View`
+  margin-top: 33
+  margin-bottom: 17
 `
-const FormInput = styled.TextInput`
-  height: 55
-  marginBottom: 10
-  border-radius: 5
-  background-color: rgb(235,235,235)
+const LinkView = styled.View`
+  flex-direction: row
+  justify-content: space-between
 `
-const LoginButtonView = PrimaryView.extend`
-  marginTop: 30
+const ViewText = styled.Text`
+  color: #fff
+  font-size: 17
 `
-
-const LoginButton = createButton(({ text }) => (
-  <LoginButtonView>
-    <ButtonText>{text}</ButtonText>
-  </LoginButtonView>
-))
+const OtherView = styled(LinkView) `
+  margin-top: 114
+  justify-content: center
+`
 
 class Login extends Component {
   static navigationOptions = {
     header: false,
   }
+  state = {
+    value: null
+  }
   handleLogin = () => {
     const { navigation } = this.props;
     navigation.goBack()
+  }
+  handleChangeText = (value) => {
+    this.setState({ value })
   }
   render() {
     return (
@@ -61,12 +67,31 @@ class Login extends Component {
         source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
       >
         <LoginCard>
-          <FormInput />
-          <FormInput />
-          <LoginButton
-            text={'登陆'}
-            onPress={this.handleLogin}
+          <IconInput
+            placeholder={'手机号/邮箱'}
+            keyboardType={'email-address'}
+            returnKeyType={'next'}
           />
+          <IconInput
+            secureTextEntry
+            placeholder={'密码'}
+            keyboardType={'ascii-capable'}
+            returnKeyType={'done'}
+            onChangeText={this.handleChangeText}
+          />
+          <LoginButtonView>
+            <LoginButton
+              text={'登陆'}
+              onPress={this.handleLogin}
+            />
+          </LoginButtonView>
+          <LinkView>
+            <ViewText>忘记密码</ViewText>
+            <ViewText>注册</ViewText>
+          </LinkView>
+          <OtherView>
+            <ViewText>其他账号登陆</ViewText>
+          </OtherView>
         </LoginCard>
       </BackgroundView>
     )
