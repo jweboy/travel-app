@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import styled from 'styled-components/native'
 
-// default button
+// container-view
 const ButtonView = styled.View`
   padding-top: 10
   padding-right: 15
@@ -10,16 +10,16 @@ const ButtonView = styled.View`
   border-radius: 5
   background-color: #ccc
 `
+const PrimaryView = styled(ButtonView) `
+  background-color: rgb(117,178,193)
+`
+
+// inner-text
 const ButtonText = styled.Text`
   color: #fff
   text-align: center
   font-size: 18
   letter-spacing: 2
-`
-
-// primary button
-const PrimaryView = styled(ButtonView) `
-  background-color: rgb(117,178,193)
 `
 export {
   ButtonView,
