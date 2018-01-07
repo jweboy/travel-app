@@ -8,7 +8,9 @@ const IconInput = (props) => (
       <Text>1</Text>
     </IconView> */}
     <Input
+      ref={props.ownRef}  
       autoCorrect={false}
+      clearButtonMode={'while-editing'}
       {...props}
     />
   </InputView>

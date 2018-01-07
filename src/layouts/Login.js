@@ -10,7 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import { images } from '../assets'
-import { PrimaryButton } from '../styledComponents/TouchableButton'
+import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
 
 const { width, height } = Dimensions.get('window')
@@ -51,16 +51,45 @@ class Login extends Component {
   static navigationOptions = {
     header: false,
   }
-  state = {
-    value: null
+  constructor() {
+    super()
+
+    this.login = {
+      username: null,
+      password: null
+    }
   }
+  getInputText = evt => evt.nativeEvent.text
   handleLogin = () => {
-    const { navigation } = this.props;
-    navigation.goBack()
+    this.passwordInput.root.blur()
+    this.usernameInput.root.blur()
+    this.submit()
+
+    this.props.navigation.goBack()
   }
-  handleChangeText = (value) => {
-    this.setState({ value })
+  handleUsernameText = (text) => { 
+    this.login.username = text
   }
+  handlePasswordText = (text) => { 
+    this.login.password = text
+  }
+  handleSubmitUsername = (evt) => {
+    this.login.username = this.getInputText(evt)
+    this.passwordInput.root.focus()
+  }
+  handleSubmitPassword = evt => {
+    this.login.password = this.getInputText(evt)
+    this.submit()
+  }
+  submit = () => { 
+    console.log('login', this.login)
+  }
+  renderButton = () => (
+    <DefaultButton
+      text={'登陆'}
+      onPress={this.handleLogin}
+    />
+  )
   render() {
     return (
       <BackgroundView
@@ -71,6 +100,9 @@ class Login extends Component {
             placeholder={'手机号/邮箱'}
             keyboardType={'email-address'}
             returnKeyType={'next'}
+            ownRef={node => this.usernameInput = node}
+            onSubmitEditing={this.handleSubmitUsername}
+            onChangeText={this.handleUsernameText}
           />
           <IconInput
             secureTextEntry
@@ -78,13 +110,11 @@ class Login extends Component {
             keyboardType={'ascii-capable'}
             returnKeyType={'done'}
             onChangeText={this.handleChangeText}
+            ownRef={node => this.passwordInput = node}
+            onSubmitEditing={this.handleSubmitPassword}
+            onChangeText={this.handlePasswordText}
           />
-          <LoginButtonView>
-            <LoginButton
-              text={'登陆'}
-              onPress={this.handleLogin}
-            />
-          </LoginButtonView>
+          <LoginButtonView>{this.renderButton()}</LoginButtonView>
           <LinkView>
             <ViewText>忘记密码</ViewText>
             <ViewText>注册</ViewText>
