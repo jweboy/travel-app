@@ -17,3 +17,7 @@
 ### todo
 
 - touchablebutton需要提取到一个新的文件 作为样式管理组件
+- 需要配置eslint规范代码
+- login接口需要上传 接入测试
+- 考虑入口时候就增加redux
+- 增加loading动画

@@ -46,6 +46,12 @@ const OtherView = styled(LinkView) `
   margin-top: 114
   justify-content: center
 `
+const CancelText = ViewText.extend`
+  position: absolute
+  top: 20
+  right: 20
+  background-color: rgba(255, 255, 255, 0)
+`
 
 class Login extends Component {
   static navigationOptions = {
@@ -53,8 +59,7 @@ class Login extends Component {
   }
   constructor() {
     super()
-
-    this.login = {
+    this.state = {
       username: null,
       password: null
     }
@@ -65,36 +70,45 @@ class Login extends Component {
     this.usernameInput.root.blur()
     this.submit()
 
-    this.props.navigation.goBack()
+    this.handleLinkLogin()
   }
   handleUsernameText = (text) => { 
-    this.login.username = text
+    this.setState({
+      username: text
+    })
   }
   handlePasswordText = (text) => { 
-    this.login.password = text
+    this.setState({
+      password: text
+    })
   }
   handleSubmitUsername = (evt) => {
-    this.login.username = this.getInputText(evt)
     this.passwordInput.root.focus()
   }
   handleSubmitPassword = evt => {
-    this.login.password = this.getInputText(evt)
     this.submit()
   }
-  submit = () => { 
-    console.log('login', this.login)
+  handleLinkLogin = () => { 
+    this.props.navigation.goBack()
   }
-  renderButton = () => (
-    <DefaultButton
-      text={'登陆'}
-      onPress={this.handleLogin}
-    />
+  checkUserIsAvaliable = ({ username, password }) => username && password
+  submit = () => { 
+    console.log('login', this.state)
+  }
+  renderLoginButton = (BtnComponent) => (
+    <LoginButton text={'登陆'}  onPress={this.handleLogin} />
+  )
+  renderDefaultButton = () => (
+    <DefaultButton text={'登陆'} activeOpacity={1} />
   )
   render() {
+    const { username, password } = this.state
+
     return (
       <BackgroundView
         source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
       >
+        <CancelText onPress={this.handleLinkLogin}>取消</CancelText>  
         <LoginCard>
           <IconInput
             placeholder={'手机号/邮箱'}
@@ -103,6 +117,7 @@ class Login extends Component {
             ownRef={node => this.usernameInput = node}
             onSubmitEditing={this.handleSubmitUsername}
             onChangeText={this.handleUsernameText}
+            onBlur={this.handleInputBlur}
           />
           <IconInput
             secureTextEntry
@@ -113,8 +128,14 @@ class Login extends Component {
             ownRef={node => this.passwordInput = node}
             onSubmitEditing={this.handleSubmitPassword}
             onChangeText={this.handlePasswordText}
+            onBlur={this.handleInputBlur}
           />
-          <LoginButtonView>{this.renderButton()}</LoginButtonView>
+          <LoginButtonView>
+            {this.checkUserIsAvaliable({ username, password }) ?
+                this.renderLoginButton() :
+                this.renderDefaultButton()
+            }
+          </LoginButtonView>
           <LinkView>
             <ViewText>忘记密码</ViewText>
             <ViewText>注册</ViewText>

@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
 
 const createButton = (WrapperComponent) => class extends Component {
+  static defaultProps = {
+    activeOpacity: 0.75
+  }
   render() {
-    const { text, onPress } = this.props
+    const { text, onPress, activeOpacity } = this.props
     return (
-      <TouchableOpacity onPress={onPress} activeOpacity={0.75}>
+      <TouchableOpacity onPress={onPress} activeOpacity={activeOpacity}>
         <WrapperComponent text={text} />
       </TouchableOpacity>
     )
