@@ -57,3 +57,5 @@ buck-out/
 .vscode
 
 src/assets/*
+
+package-lock.json
