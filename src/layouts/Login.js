@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
+import axios from 'axios'
 import { images } from '../assets'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
@@ -93,6 +94,21 @@ class Login extends Component {
   checkUserIsAvaliable = ({ username, password }) => username && password
   submit = () => { 
     console.log('login', this.state)
+    axios({
+      method: 'post',
+      url: 'http://api.jweboy.com/users/signin',
+      // data: {
+      //   username: 'we',
+      //   password: 123
+      // }
+    })
+      .then(function ({ data, status }) {
+        console.log('data', data)
+        console.log('status', status)
+      })
+      .catch(function (err) {
+        console.error(err)
+      })
   }
   renderLoginButton = (BtnComponent) => (
     <LoginButton text={'登陆'}  onPress={this.handleLogin} />
@@ -130,10 +146,11 @@ class Login extends Component {
             onBlur={this.handleInputBlur}
           />
           <LoginButtonView>
-            {this.checkUserIsAvaliable({ username, password }) ?
+            {/* {this.checkUserIsAvaliable({ username, password }) ?
               this.renderLoginButton() :
               this.renderDefaultButton()
-            }
+            } */}
+            {this.renderLoginButton()}
           </LoginButtonView>
           <LinkView>
             <ViewText>忘记密码</ViewText>
