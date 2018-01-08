@@ -14,7 +14,7 @@ class Home extends Component {
     headerLeft: (
       <View>
         <Text>logo</Text>
-      </View>
+      </View> 
     ),
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate('Message')}>

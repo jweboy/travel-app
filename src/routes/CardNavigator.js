@@ -14,9 +14,9 @@ const routeScreen = {
 const routeConfig = {
   mode: 'card',
   headerMode: 'float',
-  transitionConfig: (() => ({
+  transitionConfig: () => ({
     screenInterpolator: CardStackStyleInterpolator.forHorizontal,
-  })),
+  }),
   initialRouteName: 'Tab',
 }
 

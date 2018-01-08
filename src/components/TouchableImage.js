@@ -6,7 +6,7 @@ import {
 
 class TouchableImage extends Component {
   render() {
-    const { onPress, ...otherProps } = this.props;
+    const { onPress, ...otherProps } = this.props
     return (
       <TouchableOpacity
         onPress={onPress}

@@ -5,7 +5,6 @@ import {
   Dimensions,
   TextInput,
   ImageBackground,
-  StyleSheet
 } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
@@ -132,8 +131,8 @@ class Login extends Component {
           />
           <LoginButtonView>
             {this.checkUserIsAvaliable({ username, password }) ?
-                this.renderLoginButton() :
-                this.renderDefaultButton()
+              this.renderLoginButton() :
+              this.renderDefaultButton()
             }
           </LoginButtonView>
           <LinkView>

@@ -13,7 +13,7 @@ const routeScreen = {
 const routeConfig = {
   mode: 'modal',
   headerMode: 'none',
-  initialRouteName: 'Login'
+  // initialRouteName: 'Login'
 }
 
-export default StackNavigator(routeScreen, routeConfig);
+export default StackNavigator(routeScreen, routeConfig)
