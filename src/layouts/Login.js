@@ -12,6 +12,7 @@ import axios from 'axios'
 import { images } from '../assets'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
+import Loading from '../components/Loading'
 
 const { width, height } = Dimensions.get('window')
 const LoginButton = PrimaryButton
@@ -61,7 +62,8 @@ class Login extends Component {
     super()
     this.state = {
       username: null,
-      password: null
+      password: null,
+      loading: false
     }
   }
   getInputText = evt => evt.nativeEvent.text
@@ -94,17 +96,25 @@ class Login extends Component {
   checkUserIsAvaliable = ({ username, password }) => username && password
   submit = () => { 
     console.log('login', this.state)
+    this.setState({
+      loading: true
+    })
     axios({
       method: 'post',
-      url: 'http://api.jweboy.com/users/signin',
-      // data: {
-      //   username: 'we',
-      //   password: 123
-      // }
+      url: 'http://127.0.0.1:3000/users/signin',
+      data: {
+        username: 'we',
+        password: 123
+      }
     })
-      .then(function ({ data, status }) {
+      .then(({ data, status }) => {
         console.log('data', data)
         console.log('status', status)
+        setTimeout(() => { 
+          this.setState({
+            loading: false
+          })
+        }, 1000)
       })
       .catch(function (err) {
         console.error(err)
@@ -117,12 +127,13 @@ class Login extends Component {
     <DefaultButton text={'登陆'} activeOpacity={1} />
   )
   render() {
-    const { username, password } = this.state
-
+    const { username, password, loading } = this.state
+    // console.warn(loading)
     return (
       <BackgroundView
         source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
       >
+        <Loading visible={loading} />  
         <CancelText onPress={this.handleLinkLogin}>取消</CancelText>  
         <LoginCard>
           <IconInput
