@@ -1,17 +1,17 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { DrawerNavigator } from 'react-navigation'
-import Navigator from './Navigation'
+import RootNavigator from './RootNavigator'
 
-const TestTab = () => (
-  <View>
-    <Text>lll</Text>
-  </View>
-)
+// const TestTab = () => (
+//   <View>
+//     <Text>lll</Text>
+//   </View>
+// )
 
-const Drawer = DrawerNavigator({
+const DrawerRoute = DrawerNavigator({
   NavigatorTab: {
-    screen: Navigator,
+    screen: RootNavigator,
     navigationOptions: {
       drawer: () => ({
         label: 'Simple Tabs',
@@ -20,4 +20,4 @@ const Drawer = DrawerNavigator({
   }
 })
 
-export default Drawer
+export default DrawerRoute
