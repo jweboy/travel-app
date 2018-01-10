@@ -5,6 +5,7 @@ import {
   Dimensions,
   TextInput,
   ImageBackground,
+  StyleSheet
 } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
@@ -13,6 +14,8 @@ import { images } from '../assets'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
 import Loading from '../components/Loading'
+
+// https://medium.freecodecamp.org/shared-element-transition-with-react-native-159f8bc37f50
 
 const { width, height } = Dimensions.get('window')
 const LoginButton = PrimaryButton
@@ -102,10 +105,7 @@ class Login extends Component {
     axios({
       method: 'post',
       url: 'http://127.0.0.1:3000/users/signin',
-      data: {
-        username: 'we',
-        password: 123
-      }
+      data: {}
     })
       .then(({ data, status }) => {
         console.log('data', data)
@@ -116,8 +116,15 @@ class Login extends Component {
           })
         }, 1000)
       })
-      .catch(function (err) {
-        console.error(err)
+      .catch((err) => {
+        if (err.response) { 
+          console.warn(err.response)
+          setTimeout(() => { 
+            this.setState({
+              loading: false
+            })
+          }, 1000)
+        }
       })
   }
   renderLoginButton = (BtnComponent) => (
@@ -167,6 +174,9 @@ class Login extends Component {
             <ViewText>忘记密码</ViewText>
             <ViewText>注册</ViewText>
           </LinkView>
+          {/* <View style={styles.child}>
+            <Text>transform</Text>
+          </View> */}
           <OtherView>
             <ViewText>其他账号登陆</ViewText>
           </OtherView>
@@ -175,5 +185,13 @@ class Login extends Component {
     )
   }
 }
+
+// const styles = StyleSheet.create({
+//   child: {
+//     transform: [
+//       { translateX: - Dimensions.get('window').width * 0.24 },
+//     ]
+//   }
+// })
 
 export default Login
