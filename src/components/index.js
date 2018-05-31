@@ -1,0 +1,1 @@
+export { default as XwHeader } from './header'
