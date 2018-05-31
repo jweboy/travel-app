@@ -10,10 +10,11 @@ import {
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import axios from 'axios'
-import { images } from '../assets'
+// import { images } from '../assets'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
 import Loading from '../components/Loading'
+import { XwHeader } from '../components'
 
 // https://medium.freecodecamp.org/shared-element-transition-with-react-native-159f8bc37f50
 
@@ -21,9 +22,8 @@ const { width, height } = Dimensions.get('window')
 const LoginButton = PrimaryButton
 
 const BackgroundView = styled.ImageBackground`
-  flex: 1
-  align-items: center
-  justify-content: center
+  flex: 1;
+  background-color: 'rgba(245,236,236, .35)';
 `
 const LoginCard = styled.View`
   width: ${width - 60}
@@ -57,10 +57,21 @@ const CancelText = ViewText.extend`
   background-color: rgba(255, 255, 255, 0)
 `
 
+function CencelButton() { 
+  return <Text>取消</Text>
+}
+
 class Login extends Component {
-  static navigationOptions = {
-    header: false,
+  static defaultProps = {
+    header: {
+      centerText: '小窝欢迎你',
+      rightText: '取消'
+    }
   }
+  // static navigationOptions = {
+  //   // header: false,
+  //   headerTitle: 'sdsd'
+  // }
   constructor() {
     super()
     this.state = {
@@ -135,12 +146,15 @@ class Login extends Component {
   )
   render() {
     const { username, password, loading } = this.state
+    const { header } = this.props
     // console.warn(loading)
     return (
-      <BackgroundView
-        source={{ uri: 'http://pic-cdn.35pic.com/58pic/21/78/01/50v58PIC3rP.jpg!w290' }}
-      >
-        <Loading visible={loading} />  
+      <BackgroundView>
+        <XwHeader
+          centerComponent={{ text: header.centerText }}
+          rightComponent={<CencelButton />}
+        />
+        {/* <Loading visible={loading} />  
         <CancelText onPress={this.handleLinkLogin}>取消</CancelText>  
         <LoginCard>
           <IconInput
@@ -167,20 +181,21 @@ class Login extends Component {
             {/* {this.checkUserIsAvaliable({ username, password }) ?
               this.renderLoginButton() :
               this.renderDefaultButton()
-            } */}
+            }
             {this.renderLoginButton()}
           </LoginButtonView>
           <LinkView>
             <ViewText>忘记密码</ViewText>
             <ViewText>注册</ViewText>
           </LinkView>
-          {/* <View style={styles.child}>
+          <View style={styles.child}>
             <Text>transform</Text>
-          </View> */}
+          </View>
           <OtherView>
             <ViewText>其他账号登陆</ViewText>
           </OtherView>
-        </LoginCard>
+        </LoginCard> */}
+        <Text>login</Text>
       </BackgroundView>
     )
   }

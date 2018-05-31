@@ -10,7 +10,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
-import { images } from '../assets'
+// import { images } from '../assets'
 import { imagePicker } from '../config'
 import TouchableImage from '../components/TouchableImage'
 
@@ -19,7 +19,8 @@ class User extends Component {
     title: '我的'
   }
   state = {
-    avatar: images.avatar
+    avatar: null
+    // avatar: images.avatar
   }
   uplodaAvatar = () => {
     ImagePicker.openPicker(imagePicker.singlePhoto)
