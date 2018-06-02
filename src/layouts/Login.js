@@ -14,7 +14,7 @@ import axios from 'axios'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
 import Loading from '../components/Loading'
-import { XwHeader } from '../components'
+import { XwHeader, XwInput, XwIcon } from '../components'
 
 // https://medium.freecodecamp.org/shared-element-transition-with-react-native-159f8bc37f50
 
@@ -154,6 +154,23 @@ class Login extends Component {
           centerComponent={{ text: header.centerText }}
           rightComponent={<CencelButton />}
         />
+        <View>
+          <XwInput
+            placeholder="请输入用户名"
+            leftIcon={<XwIcon
+              name="user"
+            />}
+            shake
+            name="用户名"
+          />
+          <XwInput
+            placeholder="请输入密码"
+            leftIcon={<XwIcon
+              name="password"
+            />}
+            name="密码"
+          />
+        </View>
         {/* <Loading visible={loading} />  
         <CancelText onPress={this.handleLinkLogin}>取消</CancelText>  
         <LoginCard>
@@ -195,7 +212,6 @@ class Login extends Component {
             <ViewText>其他账号登陆</ViewText>
           </OtherView>
         </LoginCard> */}
-        <Text>login</Text>
       </BackgroundView>
     )
   }

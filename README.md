@@ -3,6 +3,7 @@
 ### 依赖库
 
 >[react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)
+>[https://react-native-training.github.io/react-native-elements](https://react-native-training.github.io/react-native-elements)
 
 ### issues
 
