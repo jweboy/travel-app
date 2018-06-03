@@ -4,25 +4,30 @@ import { Header } from 'react-native-elements'
 
 class XwHeader extends Component {
   static defaultProps = {
-    centerComponent: {},
-    rightComponent: {},
+    center: {},
+    centerComponent: {
+      text: 'header-text',
+      style: { fontSize: 22 },
+    },
     backgroundColor: '#fff'
   }
   static propTypes = {
+    center: PropTypes.object,
+    backgroundColor: PropTypes.string,
     centerComponent: PropTypes.oneOfType([
       PropTypes.object,
-      PropTypes.func,
-      PropTypes.element
-    ]),
-    rightComponent: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.element
-    ]),
-    backgroundColor: PropTypes.string,
+      PropTypes.element,
+      PropTypes.func
+    ])
   }
   render() {
+    const { center, centerComponent, ...otherProps } = this.props
+    const centerProps = {...centerComponent, ...center }
     return (
-      <Header {...this.props} />
+      <Header
+        centerComponent={centerProps}
+        {...otherProps}
+      />
     )
   }
 }

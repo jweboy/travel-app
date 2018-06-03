@@ -35,6 +35,10 @@ const LoginFormView = styled.View`
   justify-content: center;
 `
 
+const CancelText = styled.Text`
+  font-size: 22;
+`
+
 // const LoginFormInput = styled.XwInput`
 //   height: 100%;
 // `
@@ -72,7 +76,7 @@ const LoginFormView = styled.View`
 // `
 
 function CencelButton() { 
-  return <Text>取消</Text>
+  return <CancelText>取消</CancelText>
 }
 
 class Login extends Component {
@@ -84,6 +88,7 @@ class Login extends Component {
       loading: false,
       disabled: false,
     }
+    this.handleSubmitLoginForm = this.handleSubmitLoginForm.bind(this)
   }
   getInputText = evt => evt.nativeEvent.text
   handleLogin = () => {
@@ -113,35 +118,37 @@ class Login extends Component {
     this.props.navigation.goBack()
   }
   checkUserIsAvaliable = ({ username, password }) => username && password
-  submit = () => { 
-    console.log('login', this.state)
-    this.setState({
-      loading: true
-    })
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:3000/users/signin',
-      data: {}
-    })
-      .then(({ data, status }) => {
-        console.log('data', data)
-        console.log('status', status)
-        setTimeout(() => { 
-          this.setState({
-            loading: false
-          })
-        }, 1000)
-      })
-      .catch((err) => {
-        if (err.response) { 
-          console.warn(err.response)
-          setTimeout(() => { 
-            this.setState({
-              loading: false
-            })
-          }, 1000)
-        }
-      })
+  handleSubmitLoginForm() { 
+    alert('login in')
+    // alert('ok', this.state.disabled)
+    // console.log('login', this.state)
+    // this.setState({
+    //   loading: true
+    // })
+    // axios({
+    //   method: 'post',
+    //   url: 'http://127.0.0.1:3000/users/signin',
+    //   data: {}
+    // })
+    //   .then(({ data, status }) => {
+    //     console.log('data', data)
+    //     console.log('status', status)
+    //     setTimeout(() => { 
+    //       this.setState({
+    //         loading: false
+    //       })
+    //     }, 1000)
+    //   })
+    //   .catch((err) => {
+    //     if (err.response) { 
+    //       console.warn(err.response)
+    //       setTimeout(() => { 
+    //         this.setState({
+    //           loading: false
+    //       })
+    //     }, 1000)
+    //   }
+    // })
   }
   renderLoginButton = (BtnComponent) => (
     <LoginButton text={'登陆'}  onPress={this.handleLogin} />
@@ -153,32 +160,34 @@ class Login extends Component {
     const { username, password, loading } = this.state
     const { header } = this.props
     const btnStyle = { height: 50, marginTop: 20 }
+    const inputStyle = { width: '100%' }
     // console.warn(loading)
     return (
       <BackgroundView>
         <XwHeader
-          centerComponent={{ text: '小窝欢迎你'}}
+          center={{ text: '小窝欢迎你'}}
           rightComponent={<CencelButton />}
         />
         <BodyView>
           <LoginFormView>
             <XwInput
               placeholder="请输入用户名"
-              leftIcon={<XwIcon
-                name="user"
-              />}
+              leftIcon={<XwIcon name="user" />}
+              containerStyle={inputStyle}
               // name="用户名"
             />
             <XwInput
               placeholder="请输入密码"
               leftIcon={<XwIcon name="key" />}
               rightIcon={<XwIcon name="eye" />}
+              containerStyle={inputStyle}
               // name="密码"
             />
             <XwButton
               title="登录"
               buttonStyle={btnStyle}
-              disabled
+              // disabled
+              onPress={this.handleSubmitLoginForm}
             />
           </LoginFormView>
         </BodyView>
@@ -236,6 +245,10 @@ const styles = StyleSheet.create({
   // }
   loginForm: {
     justifyContent: 'center'
+  },
+  view: {
+    width: '100%',
+    flexGrow: 1,
   }
 })
 
