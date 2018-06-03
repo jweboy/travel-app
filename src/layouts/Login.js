@@ -14,7 +14,8 @@ import axios from 'axios'
 import { DefaultButton, PrimaryButton } from '../styledComponents/TouchableButton'
 import { IconInput } from '../styledComponents/Input'
 import Loading from '../components/Loading'
-import { XwHeader, XwInput, XwIcon } from '../components'
+import { XwHeader, XwInput, XwIcon, XwButton } from '../components'
+import { BodyView } from '../styled/basic'
 
 // https://medium.freecodecamp.org/shared-element-transition-with-react-native-159f8bc37f50
 
@@ -25,60 +26,69 @@ const BackgroundView = styled.ImageBackground`
   flex: 1;
   background-color: 'rgba(245,236,236, .35)';
 `
-const LoginCard = styled.View`
-  width: ${width - 60}
-  paddingTop: 20
-  paddingRight:20
-  paddingBottom: 20
-  paddingLeft: 20
-  background-color: rgba(245,236,236, .35)
-  border-radius: 10
-`
-const LoginButtonView = styled.View`
-  margin-top: 33
-  margin-bottom: 17
-`
-const LinkView = styled.View`
-  flex-direction: row
-  justify-content: space-between
-`
-const ViewText = styled.Text`
-  color: #fff
-  font-size: 17
-`
-const OtherView = styled(LinkView) `
-  margin-top: 114
-  justify-content: center
-`
-const CancelText = ViewText.extend`
-  position: absolute
-  top: 20
-  right: 20
-  background-color: rgba(255, 255, 255, 0)
+
+const LoginFormView = styled.View`
+  background-color: 'rgb(255, 255, 255)';
+  padding-top: 20;
+  padding-left: 20;
+  padding-right: 20;
+  justify-content: center;
 `
 
+const CancelText = styled.Text`
+  font-size: 22;
+`
+
+// const LoginFormInput = styled.XwInput`
+//   height: 100%;
+// `
+
+// const LoginCard = styled.View`
+//   width: ${width - 60}
+//   paddingTop: 20
+//   paddingRight:20
+//   paddingBottom: 20
+//   paddingLeft: 20
+//   background-color: rgba(245,236,236, .35)
+//   border-radius: 10
+// `
+// const LoginButtonView = styled.View`
+//   margin-top: 33
+//   margin-bottom: 17
+// `
+// const LinkView = styled.View`
+//   flex-direction: row
+//   justify-content: space-between
+// `
+// const ViewText = styled.Text`
+//   color: #fff
+//   font-size: 17
+// `
+// const OtherView = styled(LinkView) `
+//   margin-top: 114
+//   justify-content: center
+// `
+// const CancelText = ViewText.extend`
+//   position: absolute
+//   top: 20
+//   right: 20
+//   background-color: rgba(255, 255, 255, 0)
+// `
+
 function CencelButton() { 
-  return <Text>取消</Text>
+  return <CancelText>取消</CancelText>
 }
 
 class Login extends Component {
-  static defaultProps = {
-    header: {
-      centerText: '小窝欢迎你',
-      rightText: '取消'
-    }
-  }
-  // static navigationOptions = {
-  //   // header: false,
-  //   headerTitle: 'sdsd'
-  // }
   constructor() {
     super()
     this.state = {
       username: null,
       password: null,
-      loading: false
+      loading: false,
+      disabled: false,
     }
+    this.handleSubmitLoginForm = this.handleSubmitLoginForm.bind(this)
   }
   getInputText = evt => evt.nativeEvent.text
   handleLogin = () => {
@@ -108,35 +118,37 @@ class Login extends Component {
     this.props.navigation.goBack()
   }
   checkUserIsAvaliable = ({ username, password }) => username && password
-  submit = () => { 
-    console.log('login', this.state)
-    this.setState({
-      loading: true
-    })
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:3000/users/signin',
-      data: {}
-    })
-      .then(({ data, status }) => {
-        console.log('data', data)
-        console.log('status', status)
-        setTimeout(() => { 
-          this.setState({
-            loading: false
-          })
-        }, 1000)
-      })
-      .catch((err) => {
-        if (err.response) { 
-          console.warn(err.response)
-          setTimeout(() => { 
-            this.setState({
-              loading: false
-            })
-          }, 1000)
-        }
-      })
+  handleSubmitLoginForm() { 
+    alert('login in')
+    // alert('ok', this.state.disabled)
+    // console.log('login', this.state)
+    // this.setState({
+    //   loading: true
+    // })
+    // axios({
+    //   method: 'post',
+    //   url: 'http://127.0.0.1:3000/users/signin',
+    //   data: {}
+    // })
+    //   .then(({ data, status }) => {
+    //     console.log('data', data)
+    //     console.log('status', status)
+    //     setTimeout(() => { 
+    //       this.setState({
+    //         loading: false
+    //       })
+    //     }, 1000)
+    //   })
+    //   .catch((err) => {
+    //     if (err.response) { 
+    //       console.warn(err.response)
+    //       setTimeout(() => { 
+    //         this.setState({
+    //           loading: false
+    //       })
+    //     }, 1000)
+    //   }
+    // })
   }
   renderLoginButton = (BtnComponent) => (
     <LoginButton text={'登陆'}  onPress={this.handleLogin} />
@@ -147,30 +159,38 @@ class Login extends Component {
   render() {
     const { username, password, loading } = this.state
     const { header } = this.props
+    const btnStyle = { height: 50, marginTop: 20 }
+    const inputStyle = { width: '100%' }
     // console.warn(loading)
     return (
       <BackgroundView>
         <XwHeader
-          centerComponent={{ text: header.centerText }}
+          center={{ text: '小窝欢迎你'}}
           rightComponent={<CencelButton />}
         />
-        <View>
-          <XwInput
-            placeholder="请输入用户名"
-            leftIcon={<XwIcon
-              name="user"
-            />}
-            shake
-            name="用户名"
-          />
-          <XwInput
-            placeholder="请输入密码"
-            leftIcon={<XwIcon
-              name="password"
-            />}
-            name="密码"
-          />
-        </View>
+        <BodyView>
+          <LoginFormView>
+            <XwInput
+              placeholder="请输入用户名"
+              leftIcon={<XwIcon name="user" />}
+              containerStyle={inputStyle}
+              // name="用户名"
+            />
+            <XwInput
+              placeholder="请输入密码"
+              leftIcon={<XwIcon name="key" />}
+              rightIcon={<XwIcon name="eye" />}
+              containerStyle={inputStyle}
+              // name="密码"
+            />
+            <XwButton
+              title="登录"
+              buttonStyle={btnStyle}
+              // disabled
+              onPress={this.handleSubmitLoginForm}
+            />
+          </LoginFormView>
+        </BodyView>
         {/* <Loading visible={loading} />  
         <CancelText onPress={this.handleLinkLogin}>取消</CancelText>  
         <LoginCard>
@@ -217,12 +237,19 @@ class Login extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   child: {
-//     transform: [
-//       { translateX: - Dimensions.get('window').width * 0.24 },
-//     ]
-//   }
-// })
+const styles = StyleSheet.create({
+  // child: {
+  //   transform: [
+  //     { translateX: - Dimensions.get('window').width * 0.24 },
+  //   ]
+  // }
+  loginForm: {
+    justifyContent: 'center'
+  },
+  view: {
+    width: '100%',
+    flexGrow: 1,
+  }
+})
 
 export default Login

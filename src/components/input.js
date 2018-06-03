@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
-import { FormInput, FormLabel } from 'react-native-elements'
+import { Input } from 'react-native-elements'
 
 class XwInput extends Component {
   static defaultProps = {
@@ -12,10 +12,7 @@ class XwInput extends Component {
   }
   render() {
     const { name, ...otherProps } = this.props
-    return [
-      <FormLabel key="xw-form-input-label">{name}</FormLabel>,
-      <FormInput key="xw-form-input" {...otherProps} />
-    ]
+    return <Input {...otherProps} />
   }
 }
 
