@@ -6,7 +6,7 @@ axios.defaults.baseURL = 'http://118.24.155.105/api/'
 axios.defaults.timeout = 10000
 axios.defaults.headers = {
   'X-Requested-With': 'XMLHttpRequest',
-  "Accept": "application/json",
+  'Accept': 'application/json',
 
   Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIxMjMiLCJpYXQiOjE1MjgzNzQ2NjF9.0Frf5AMOj92lIMkaCDOPvbJD_Z1o_S37cVdJcWqdQwE'
 }
